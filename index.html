@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>干饭星球任务中心</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 加载遮罩 -->
+  <div id="loading-screen"></div>
+
+  <!-- 主内容容器 -->
+  <div class="container hidden">
+    <!-- 打字机提示语 -->
+    <div class="intro">
+      <p id="loading-text"></p>
+    </div>
+
+    <h1>选择你的真命天饭！</h1>
+
+    <!-- 九宫格 -->
+    <div class="canteen-grid"></div>
+
+    <!-- 摇骰子 -->
+    <div class="dice-area">
+      <img id="dice" src="https://cdn-icons-png.flaticon.com/512/1046/1046750.png" alt="摇骰子" />
+      <p>点我摇骰子 🎲</p>
+    </div>
+  </div>
+
+  <!-- 弹窗 -->
+  <div class="modal hidden" id="modal">
+    <div class="modal-content">
+      <span class="modal-close" id="close-modal">&times;</span>
+      <p id="modal-text"></p>
+      <div class="modal-buttons">
+        <button id="accept">就吃这个！</button>
+        <button id="repeat">上一顿吃过，换一个</button>
+        <button id="skip">太远了，换一个</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
