@@ -89,7 +89,6 @@ h1 {
   display: none;
 }
 
-/* 💬 弹窗背景遮罩 */
 .modal {
   position: fixed;
   top: 0;
@@ -97,11 +96,21 @@ h1 {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
 }
+
+/* 加上这个，确保初始时隐藏 */
+.modal.hidden {
+  display: none;
+}
+
+/* 弹窗弹出时才显示为 flex */
+.modal:not(.hidden) {
+  display: flex;
+}
+
 
 /* 💬 弹窗内容 */
 .modal-content {
