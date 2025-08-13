@@ -1,13 +1,13 @@
 const canteens = [
   {
-    name: "学一",
+    name: "学一（悠然轩）",
     location: "山下",
     intro: "我是不起眼的老大哥，但我有家的味道！",
     openTime: "早餐7:00 ~ 9:30；午餐11:00-13:30；晚餐17:00-19:30",
     stalls: ["麻辣烫", "江浙菜", "煲仔饭", "黄焖水煮", "老鸭粉丝汤", "港式烧腊", "水果捞"]
   },
   {
-    name: "学二",
+    name: "学二（尚荷轩）",
     location: "山下",
     intro: "我有最接地气的价格和风景～",
     openTime: "午餐11:00-13:30；晚餐17:00-19:30",
@@ -83,14 +83,7 @@ canteens.forEach(c => {
   box.textContent = c.name;
 
   box.addEventListener("click", () => {
-    modalText.innerHTML = `
-      <strong>${c.name}</strong><br>
-      📍 位置：${c.location}<br>
-      🕐 营业时间：${c.openTime}<br>
-      🍽️ 档口：${c.stalls.join("，")}<br><br>
-      🌟 ${c.intro}
-    `;
-    modal.classList.remove("hidden");
+    showModal(c, true);
   });
 
   grid.appendChild(box);
@@ -115,15 +108,30 @@ window.onload = () => {
 let tried = [];
 let last = null;
 
-function showModal(canteen) {
-  modalText.innerHTML = `
-    <strong>今天就吃「${canteen.name}」吧！</strong><br>
+function showModal(canteen, showDetails = false) {
+  let content = `
+    <strong>${canteen.name}</strong><br>
     📍 位置：${canteen.location}<br>
-    🕐 营业时间：${canteen.openTime}<br>
-    🍽️ 档口：${canteen.stalls.join("，")}<br><br>
-    🌟 ${canteen.intro}
   `;
+  
+  if (showDetails) {
+    content += `
+    🕐 营业时间：${canteen.openTime}<br>
+    🍽️ 档口：${canteen.stalls.join("，")}<br>
+    `;
+  } else {
+    content += `<br>🌟 ${canteen.intro}`;
+  }
+  
+  modalText.innerHTML = content;
   modal.classList.remove("hidden");
+  
+  // 如果是点击食堂格子（showDetails为true），隐藏按钮
+  if (showDetails) {
+    document.querySelector('.modal-buttons').style.display = 'none';
+  } else {
+    document.querySelector('.modal-buttons').style.display = 'block';
+  }
 }
 
 function getRandomCanteen(filterFn) {
@@ -144,7 +152,7 @@ dice.addEventListener("click", () => {
   }
   last = pick;
   tried.push(pick.name);
-  showModal(pick);
+  showModal(pick, false);
 });
 
 acceptBtn.addEventListener("click", () => {
@@ -160,7 +168,7 @@ repeatBtn.addEventListener("click", () => {
   } else {
     last = pick;
     tried.push(pick.name);
-    showModal(pick);
+    showModal(pick, false);
   }
 });
 
@@ -171,7 +179,7 @@ skipBtn.addEventListener("click", () => {
   } else {
     last = pick;
     tried.push(pick.name);
-    showModal(pick);
+    showModal(pick, false);
   }
 });
 
